@@ -6,7 +6,7 @@ And of course the demands from my parents for pictures of their new grandson hav
 
 This was definitely the path of least resistance, but of course, the iMessage UI isn't really a great way to get a snapshot of someone's most recent pictures. So I decided to get creative, and **turn my Electric Objects Digital Art Display into a collaborative family photo frame**, so that my parents could see new pictures show up in their kitchen, in real time. I've used digital picture frames like [Ceiva](http://www.ceiva.com) in the past, and they're okay, but nothing matches the sleek finish of the Electric Objects display, or the ability to control how images are loaded and displayed.
 
-![My Electric Objects family photo frame](https://twil-eo.s3.amazonaws.com/eo.jpg)
+![My Electric Objects family photo frame](https://twil-eo.s3.amazonaws.com/frame.jpg)
 
 Having seen a bunch of great SMS/MMS demos from [Ricky Robinett](https://twitter.com/rickyrobinett) at [BrooklynJS](http://brooklynjs.com), I figured Twilio would be an easy way to pull all of the photos out of our existing iMessage group and put them on the display. So I created an app that uses AWS to glue Twilio and Electric Objects together, and put [the source code on GitHub](https://github.com/jed/twil-eo). Here's how the whole thing works:
 
