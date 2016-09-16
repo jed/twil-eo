@@ -243,6 +243,6 @@ function update() {
     var account = JSON.parse(res.Body.toString('utf8'))
     var client = eo(account.email, account.password)
 
-    return client.setUrl(url)
+    return client.setUrl(url).then(() => url)
   })
 }
