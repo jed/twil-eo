@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "node test.js",
-    "build": "docco -l linear index.js README.md"
+    "build": "docco -l linear intro.md index.js setup.md"
   },
   "repository": {
     "type": "git",

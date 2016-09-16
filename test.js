@@ -11,7 +11,7 @@ var message = qs.stringify({
 var context = {
   succeed: msg => { console.log(msg) },
   fail: err => { throw err },
-  functionName: 'twileo'
+  functionName: 'twileo' // change this to your S3 bucket name for testing
 }
 
 index.handler(message, context)
