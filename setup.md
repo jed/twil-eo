@@ -70,7 +70,7 @@ This gives your Lambda function the permissions it needs to read from and write 
 16. Your lambda is ready.
 
 <a name="apigateway"></a>
-### Step 2d: Create an API Gateway endpoint
+### Step 2d: Create an AWS API Gateway endpoint
 
 1. From the top nav of the [AWS Console](https://console.aws.amazon.com), choose **Services**, then **All AWS Services**, then **API Gateway**.
 2. Click the **Get Started** button.
@@ -81,33 +81,33 @@ This gives your Lambda function the permissions it needs to read from and write 
 7. Click the **Actions...** button, and then choose **Create Method**.
 8. From the select box, choose **POST** and then click the check button.
 9. For **Integration type**, choose the **Lambda Function** radio button.
- 10. For **Lambda Region**, choose the region for your function, which should be **us-east-1**.
- 11. For **Lambda Function**, specify the first character name of your function (the same name as your project), and then choose the matching function name.
+10. For **Lambda Region**, choose the region for your function, which should be **us-east-1**.
+11. For **Lambda Function**, specify the first character name of your function (the same name as your project), and then choose the matching function name.
 12. Click the **Save** button.
 13. Click **OK**.
 14. Click **Integration Request**.
-  1. Under **Body Mapping Templates**, click the **Add mapping template** button,
-  2. For **Content-Type**, specify `application/x-www-form-urlencoded`.
-  3. Click the check button.
-  4. Click the **Yes, secure this integration** button.
-  4. For **application/x-www-form-urlencoded**, specify `$input.json('$')`.
-  5. Click the **Save** button.
-  6. Click **← Method Execution** button to go back.
+    1. Under **Body Mapping Templates**, click the **Add mapping template** button,
+    2. For **Content-Type**, specify `application/x-www-form-urlencoded`.
+    3. Click the check button.
+    4. Click the **Yes, secure this integration** button.
+    4. For **application/x-www-form-urlencoded**, specify `$input.json('$')`.
+    5. Click the **Save** button.
+    6. Click **← Method Execution** button to go back.
 15. Click **Integration Response**.
-  1. Under **Body Mapping Templates**, click the **-** button next to **application/json**.
-  2. Click the **Delete** button.
-  3. click the **Add mapping template** button.
-  4. For **Content-Type**, specify `application/xml`.
-  5. Click the check button.
-  6. For **application/xml**, specify `<?xml version="1.0" encoding="UTF-8"?><Response></Response>`.
-  7. Click the **Save** button.
-  8. Click **← Method Execution** button to go back.
+    1. Under **Body Mapping Templates**, click the **-** button next to **application/json**.
+    2. Click the **Delete** button.
+    3. click the **Add mapping template** button.
+    4. For **Content-Type**, specify `application/xml`.
+    5. Click the check button.
+    6. For **application/xml**, specify `<?xml version="1.0" encoding="UTF-8"?><Response></Response>`.
+    7. Click the **Save** button.
+    8. Click **← Method Execution** button to go back.
 16. Click **Method Response**.
-  1. Under **Response Models for 200**, click the **Add response model** button,
-  2. For **Content-Type**, specify `application/xml`.
-  3. For **Model**, choose `Empty`.
-  4. Click the check button.
-  5. Click the **X** button next to **application/json** to delete that content type.
+    1. Under **Response Models for 200**, click the **Add response model** button,
+    2. For **Content-Type**, specify `application/xml`.
+    3. For **Model**, choose `Empty`.
+    4. Click the check button.
+    5. Click the **X** button next to **application/json** to delete that content type.
 17. Click the **Actions...** button and choose **Deploy API**.
 18. For **Deployment stage**, choose **[New Stage]**.
 19. For **Stage name**, specify `prod`.
@@ -131,8 +131,8 @@ This gives your Lambda function the permissions it needs to read from and write 
 ### Step 3b: Point your Twilio number at API Gateway
 
 1. Under **Messaging**, for **A MESSAGE COMES IN**,
-  1. Choose **Webhook**.
-  2. Specify the invoke URL from your API Gateway endpoint. It should look like `https://**********.execute-api.us-east-1.amazonaws.com/prod`.
-  3. Choose **HTTP POST**
+    1. Choose **Webhook**.
+    2. Specify the invoke URL from your API Gateway endpoint. It should look like `https://**********.execute-api.us-east-1.amazonaws.com/prod`.
+    3. Choose **HTTP POST**
 2. Click the **Save** button.
 3. Your phone number is ready.

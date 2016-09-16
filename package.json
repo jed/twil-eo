@@ -2,7 +2,6 @@
   "name": "twil-eo",
   "version": "1.0.0",
   "description": "Using Twilio, AWS, and Electric Objects to create an MMS-powered family photo frame.",
-  "main": "index.js",
   "scripts": {
     "test": "node test.js",
     "build": "docco -l linear intro.md index.js setup.md"
