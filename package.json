@@ -1,0 +1,31 @@
+{
+  "name": "twil-eo",
+  "version": "1.0.0",
+  "description": "Using Twilio, AWS, and Electric Objects to create an MMS-powered family photo frame.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js",
+    "build": "docco -l linear index.js README.md"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jed/twil-eo.git"
+  },
+  "author": "Jed Schmidt",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jed/twil-eo/issues"
+  },
+  "homepage": "https://github.com/jed/twil-eo#readme",
+  "devDependencies": {
+    "docco": "^0.7.0"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.6.2",
+    "electric-objects": "^1.0.0",
+    "gm": "^1.23.0",
+    "got": "^6.5.0",
+    "mz": "^2.4.0",
+    "smartcrop-gm": "^1.0.1"
+  }
+}
