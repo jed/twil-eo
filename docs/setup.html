@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Using Twilio, AWS, and Electric Objects to create an MMS-powered family photo frame: setting up Twilio and AWS</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="public/stylesheets/normalize.css" />
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="page">
+
+      <div class="header">
+        
+          
+          <h1 id="using-twilio-aws-and-electric-objects-to-create-an-mms-powered-family-photo-frame-setting-up-twilio-and-aws">Using Twilio, AWS, and Electric Objects to create an MMS-powered family photo frame: setting up Twilio and AWS</h1>
+<p>The following are instructions for building the MMS-powered family photo frame described in <a href="https://jed.github.io/twil-eo/intro.html">this post</a>.</p>
+<p>All in all this setup should take you about ten minutes. Setup is divided into three parts:</p>
+<ol>
+<li><a href="#login">create a JSON file</a> with your Electric Objects login information,</li>
+<li>set up an <a href="#s3">S3 bucket</a>, <a href="#iam">IAM role</a>, <a href="#lambda">Lambda function</a>, and <a href="#apigateway">API Gateway endpoint</a> on AWS,</li>
+<li>set up a <a href="#twilio">Twilio phone number</a>, and <a href="#webhook">point it at your API Gateway endpoint</a>.</li>
+</ol>
+<p><a name="login"></a></p>
+<h3 id="step-1-create-a-json-file-with-your-electric-objects-login-information">Step 1: Create a JSON file with your Electric Objects login information</h3>
+<p>Open your favorite text editor, and paste in the following JSON, replacing <code>where@jed.is</code> with the email address of your Electric Objects account and <code>timtam</code> with the password of your Electric Objects account.</p>
+<pre><code>{&quot;email&quot;: &quot;where@jed.is&quot;, &quot;password&quot;: &quot;timtam&quot;}
+</code></pre><p>Save this file as <code>eo-config.json</code>, anywhere on your computer where you can find it again.</p>
+<p><a name="s3"></a></p>
+<h3 id="step-2a-create-an-aws-s3-bucket-">Step 2a: Create an AWS S3 bucket.</h3>
+<p>This is where you’ll store your EO1 account settings, the images coming in from Twilio, and the composited collage to be sent to the Electric Objects display.</p>
+<ol>
+<li>From the top nav of the <a href="https://console.aws.amazon.com">AWS Console</a>, choose <strong>Services</strong>, then <strong>All AWS Services</strong>, then <strong>S3</strong>.</li>
+<li>Click the <strong>Create bucket</strong> button.</li>
+<li>For <strong>Bucket Name</strong>, specify the name of your project. Here, mine is <code>jed-family-frame</code>.</li>
+<li>For <strong>Region</strong>, choose <strong>US Standard</strong>.</li>
+<li>Click the <strong>Create</strong> button.</li>
+<li>Click the <strong>Upload</strong> button.</li>
+<li>Click the <strong>Add Files</strong> button.</li>
+<li>Choose the <code>eo-config.json</code> file created above.</li>
+<li>Click the <strong>Start Upload</strong> button.</li>
+<li>Your bucket is ready.</li>
+</ol>
+<p><a name="iam"></a></p>
+<h3 id="step-2b-create-an-aws-iam-role-">Step 2b: Create an AWS IAM role.</h3>
+<p>This gives your Lambda function the permissions it needs to read from and write to the S3 bucket.</p>
+<ol>
+<li>From the top nav of the <a href="https://console.aws.amazon.com">AWS Console</a>, choose <strong>Services</strong>, then <strong>All AWS Services</strong>, then <strong>IAM</strong>.</li>
+<li>In the left sidebar, click the <strong>Roles</strong> button.</li>
+<li>Click the <strong>Create New Role</strong> button.</li>
+<li>For <strong>Role Name</strong>, specify the same name of your project as you did for the S3 bucket.</li>
+<li>Click the <strong>Select</strong> button for <strong>AWS Lambda</strong>, under <strong>AWS Service Roles</strong>.</li>
+<li>Select the checkboxes next to <strong>AmazonS3FullAccess</strong> and <strong>CloudWatchLogsFullAccess</strong>.</li>
+<li>Click the <strong>Next Step</strong> button.</li>
+<li>Click the <strong>Create Role</strong> button.</li>
+<li>Your role is ready.</li>
+</ol>
+<p><a name="lambda"></a></p>
+<h3 id="step-2c-create-an-aws-lambda-function-">Step 2c: Create an AWS Lambda function.</h3>
+<ol>
+<li>From the top nav of the <a href="https://console.aws.amazon.com">AWS Console</a>, choose <strong>Services</strong>, then <strong>All AWS Services</strong>, then <strong>Lambda</strong>.</li>
+<li>Click the <strong>Skip</strong> button.</li>
+<li>Click the <strong>Next</strong> button.</li>
+<li>For <strong>Name</strong>, specify the same name of your project as you did for the S3 bucket.</li>
+<li>For <strong>Runtime</strong>, choose <strong>Node.js 4.3</strong>.</li>
+<li>For <strong>Code entry type</strong>, choose <strong>Upload a .ZIP file</strong>.</li>
+<li>Click the <strong>Upload</strong> button and choose the <code>lambda.zip</code> file in your project directory.</li>
+<li>For <strong>Handler</strong>, specify <code>index.handler</code>.</li>
+<li>For <strong>Role</strong>, choose <strong>Choose an existing role</strong>.</li>
+<li>For <strong>Existing role</strong>, choose the name of the role you created.</li>
+<li>For <strong>Memory (MB)</strong>, specify <code>1024</code>.</li>
+<li>For <strong>Timeout</strong>, specify <code>1</code> min.</li>
+<li>For <strong>VPC</strong>, choose <strong>No VPC</strong>.</li>
+<li>Click the <strong>Next</strong> button.</li>
+<li>Click the <strong>Create function</strong> button.</li>
+<li>Your lambda is ready.</li>
+</ol>
+<p><a name="apigateway"></a></p>
+<h3 id="step-2d-create-an-api-gateway-endpoint">Step 2d: Create an API Gateway endpoint</h3>
+<ol>
+<li>From the top nav of the <a href="https://console.aws.amazon.com">AWS Console</a>, choose <strong>Services</strong>, then <strong>All AWS Services</strong>, then <strong>API Gateway</strong>.</li>
+<li>Click the <strong>Get Started</strong> button.</li>
+<li>Click the <strong>OK</strong> button.</li>
+<li>Select the <strong>New API</strong> radio button.</li>
+<li>For <strong>API name</strong>, specify the same name of your project as you did for the S3 bucket.</li>
+<li>Click the <strong>Create API</strong> button.</li>
+<li>Click the <strong>Actions…</strong> button, and then choose <strong>Create Method</strong>.</li>
+<li>From the select box, choose <strong>POST</strong> and then click the check button.</li>
+<li>For <strong>Integration type</strong>, choose the <strong>Lambda Function</strong> radio button.</li>
+<li>For <strong>Lambda Region</strong>, choose the region for your function, which should be <strong>us-east-1</strong>.</li>
+<li>For <strong>Lambda Function</strong>, specify the first character name of your function (the same name as your project), and then choose the matching function name.</li>
+<li>Click the <strong>Save</strong> button.</li>
+<li>Click <strong>OK</strong>.</li>
+<li>Click <strong>Integration Request</strong>.</li>
+<li>Under <strong>Body Mapping Templates</strong>, click the <strong>Add mapping template</strong> button,</li>
+<li>For <strong>Content-Type</strong>, specify <code>application/x-www-form-urlencoded</code>.</li>
+<li>Click the check button.</li>
+<li>Click the <strong>Yes, secure this integration</strong> button.</li>
+<li>For <strong>application/x-www-form-urlencoded</strong>, specify <code>$input.json(&#39;$&#39;)</code>.</li>
+<li>Click the <strong>Save</strong> button.</li>
+<li>Click <strong>← Method Execution</strong> button to go back.</li>
+<li>Click <strong>Integration Response</strong>.</li>
+<li>Under <strong>Body Mapping Templates</strong>, click the <strong>-</strong> button next to <strong>application/json</strong>.</li>
+<li>Click the <strong>Delete</strong> button.</li>
+<li>click the <strong>Add mapping template</strong> button.</li>
+<li>For <strong>Content-Type</strong>, specify <code>application/xml</code>.</li>
+<li>Click the check button.</li>
+<li>For <strong>application/xml</strong>, specify <code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;Response&gt;&lt;/Response&gt;</code>.</li>
+<li>Click the <strong>Save</strong> button.</li>
+<li>Click <strong>← Method Execution</strong> button to go back.</li>
+<li>Click <strong>Method Response</strong>.</li>
+<li>Under <strong>Response Models for 200</strong>, click the <strong>Add response model</strong> button,</li>
+<li>For <strong>Content-Type</strong>, specify <code>application/xml</code>.</li>
+<li>For <strong>Model</strong>, choose <code>Empty</code>.</li>
+<li>Click the check button.</li>
+<li>Click the <strong>X</strong> button next to <strong>application/json</strong> to delete that content type.</li>
+<li>Click the <strong>Actions…</strong> button and choose <strong>Deploy API</strong>.</li>
+<li>For <strong>Deployment stage</strong>, choose <strong>[New Stage]</strong>.</li>
+<li>For <strong>Stage name</strong>, specify <code>prod</code>.</li>
+<li>Click the <strong>Deploy</strong> button.</li>
+<li>Take note of the URL given at the top in <strong>Invoke URL</strong>. This is the URL you’ll use for your Twilio webhook.</li>
+<li>Your endpoint is ready.</li>
+</ol>
+<p><a name="twilio"></a></p>
+<h3 id="step-3a-buy-a-twilio-number">Step 3a: Buy a Twilio number</h3>
+<ol>
+<li>Open the <a href="https://www.twilio.com/console/phone-numbers/incoming">Twilio Console</a> for phone numbers.</li>
+<li>Click the <strong>+</strong> button.</li>
+<li>For <strong>COUNTRY</strong>, choose <strong>United States</strong>.</li>
+<li>For <strong>CAPABILITIES</strong>, select <strong>MMS</strong>.</li>
+<li>Click the <strong>Search</strong> button.</li>
+<li>Choose the number you want, and click the <strong>Buy</strong> button.</li>
+<li>Click the <strong>Buy This Number</strong> button.</li>
+<li>Click the <strong>Setup number</strong> button.</li>
+</ol>
+<p><a name="webhook"></a></p>
+<h3 id="step-3b-point-your-twilio-number-at-api-gateway">Step 3b: Point your Twilio number at API Gateway</h3>
+<ol>
+<li>Under <strong>Messaging</strong>, for <strong>A MESSAGE COMES IN</strong>,</li>
+<li>Choose <strong>Webhook</strong>.</li>
+<li>Specify the invoke URL from your API Gateway endpoint. It should look like <code>https://**********.execute-api.us-east-1.amazonaws.com/prod</code>.</li>
+<li>Choose <strong>HTTP POST</strong></li>
+<li>Click the <strong>Save</strong> button.</li>
+<li>Your phone number is ready.</li>
+</ol>
+
+          
+        
+
+        
+          <div class="toc">
+            <h3>Table of Contents</h3>
+            <ol>
+              
+                
+                <li>
+                  <a class="source" href="index.html">
+                    index.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="intro.html">
+                    intro.md
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="setup.html">
+                    setup.md
+                  </a>
+                </li>
+              
+            </ol>
+          </div>
+        
+      </div>
+
+      
+      <div class="fleur">h</div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>Using Twilio, AWS, and Electric Objects to create an MMS-powered family photo frame.</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" media="all" href="public/stylesheets/normalize.css" />
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="page">
+
+      <div class="header">
+        
+          
+          <h1 id="using-twilio-aws-and-electric-objects-to-create-an-mms-powered-family-photo-frame-">Using Twilio, AWS, and Electric Objects to create an MMS-powered family photo frame.</h1>
+<p>A few months ago my partner and I welcomed a pudgy baby boy named Ko into our lives. Since then it’s been amazing to see the small changes in him day by day, like when he discovered his hands, or learned how to smile. So I’ve found myself taking out my phone a lot more often, to capture as many of these moments as I can.</p>
+<p><img src="images/ko.jpg" alt="Meet Ko, in classic onigiri form"></p>
+<p>And of course the demands from my parents for pictures of their new grandson have been fierce. Ordinarily I’d post things like this on Facebook, but having been on the receiving end of oversharing parents there for a while now, I wanted something a little less public. Sure, I could deal with Facebook’s ever-changing twiddly permissions UI to make sure photos only went to my parents, but since we were already using iMessage to communicate, I decided to send them pictures there.</p>
+<p>This was definitely the path of least resistance, but of course, the iMessage UI isn’t really a great way to get a snapshot of someone’s most recent pictures. So I decided to get creative, and <strong>turn my Electric Objects Digital Art Display into a collaborative family photo frame</strong>, so that my parents could see new pictures show up in their kitchen, in real time. I’ve used digital picture frames like <a href="http://www.ceiva.com">Ceiva</a> in the past, and they’re okay, but nothing matches the sleek finish of the Electric Objects display, or the ability to control how images are loaded and displayed.</p>
+<p><img src="images/frame.jpg" alt="My Electric Objects family photo frame"></p>
+<p>Having seen a bunch of great SMS/MMS demos from <a href="https://twitter.com/rickyrobinett">Ricky Robinett</a> at <a href="http://brooklynjs.com">BrooklynJS</a>, I figured Twilio would be an easy way to pull all of the photos out of our existing iMessage group and put them on the display. So I created an app that uses AWS to glue Twilio and Electric Objects together, and put <a href="https://github.com/jed/twil-eo">the source code on GitHub</a>. Here’s how the whole thing works:</p>
+<ol>
+<li>I created a new Twilio phone number and added it to the existing iMessage group my family uses to communicate.</li>
+<li>Twilio sends all messages that arrive at this phone number to a Lambda function, via API Gateway.</li>
+<li>The function copies any MMS images from Twilio to an S3 bucket, then pulls the most recent images from the bucket to compose a collage, which is then saved back to the bucket.</li>
+<li>The function then tells Electric Objects to update the contents of my parent’s display to the URL of the collage image.</li>
+</ol>
+<p>From my phone to their display, the whole process takes about 15 seconds, a nice side effect of which is I get a backup of all the photos in an S3 bucket.</p>
+<h2 id="creating-your-own-collaborative-family-photo-frame">Creating your own collaborative family photo frame</h2>
+<p>In this post, I’m going to show you how to create your own collaborative family photo frame. All you need to follow along is:</p>
+<ul>
+<li><a href="https://www.amazon.com/dp/B00X98OMKE?tag=jedschmidt-20">An Electric Objects Digital Art Display</a>)</li>
+<li><a href="https://www.twilio.com">A Twilio account</a></li>
+<li><a href="https://aws.amazon.com">An Amazon Web Services account</a></li>
+</ul>
+<p>Once you’ve got those sorted, now you’ll just need to:</p>
+<ol>
+<li>walk through <a href="https://jed.github.io/twil-eo/index.html">the source code</a> (optional, only if you’re interested!), and then</li>
+<li>follow <a href="https://jed.github.io/twil-eo/setup.html">the setup instructions</a> for AWS and Twilio.</li>
+</ol>
+<p>If you’re stuck trying to get your frame set up, please feel free to ask me for help in the comments!</p>
+
+          
+        
+
+        
+          <div class="toc">
+            <h3>Table of Contents</h3>
+            <ol>
+              
+                
+                <li>
+                  <a class="source" href="index.html">
+                    index.js
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="intro.html">
+                    intro.md
+                  </a>
+                </li>
+              
+                
+                <li>
+                  <a class="source" href="setup.html">
+                    setup.md
+                  </a>
+                </li>
+              
+            </ol>
+          </div>
+        
+      </div>
+
+      
+      <div class="fleur">h</div>
+    </div>
+  </div>
+</body>
+</html>
