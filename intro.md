@@ -23,7 +23,7 @@ From my phone to their display, the whole process takes about 15 seconds, a nice
 
 In this post, I'm going to show you how to create your own collaborative family photo frame. All you need to follow along is:
 
-- [An Electric Objects Digital Art Display](https://www.amazon.com/dp/B00X98OMKE?tag=jedschmidt-20))
+- [An Electric Objects Digital Art Display](https://www.amazon.com/dp/B00X98OMKE?tag=jedschmidt-20)
 - [A Twilio account](https://www.twilio.com)
 - [An Amazon Web Services account](https://aws.amazon.com)
 
