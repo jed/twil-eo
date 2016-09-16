@@ -16,10 +16,10 @@
           
           <h1 id="using-twilio-aws-and-electric-objects-to-create-an-mms-powered-family-photo-frame-">Using Twilio, AWS, and Electric Objects to create an MMS-powered family photo frame.</h1>
 <p>A few months ago my partner and I welcomed a pudgy baby boy named Ko into our lives. Since then it’s been amazing to see the small changes in him day by day, like when he discovered his hands, or learned how to smile. So I’ve found myself taking out my phone a lot more often, to capture as many of these moments as I can.</p>
-<p><img src="https://twil-eo.s3.amazonaws.com/ko.jpg" alt="Meet Ko, in classic onigiri form"></p>
+<p><img src="images/ko.jpg" alt="Meet Ko, in classic onigiri form"></p>
 <p>And of course the demands from my parents for pictures of their new grandson have been fierce. Ordinarily I’d post things like this on Facebook, but having been on the receiving end of oversharing parents there for a while now, I wanted something a little less public. Sure, I could deal with Facebook’s ever-changing twiddly permissions UI to make sure photos only went to my parents, but since we were already using iMessage to communicate, I decided to send them pictures there.</p>
 <p>This was definitely the path of least resistance, but of course, the iMessage UI isn’t really a great way to get a snapshot of someone’s most recent pictures. So I decided to get creative, and <strong>turn my Electric Objects Digital Art Display into a collaborative family photo frame</strong>, so that my parents could see new pictures show up in their kitchen, in real time. I’ve used digital picture frames like <a href="http://www.ceiva.com">Ceiva</a> in the past, and they’re okay, but nothing matches the sleek finish of the Electric Objects display, or the ability to control how images are loaded and displayed.</p>
-<p><img src="https://twil-eo.s3.amazonaws.com/frame.jpg" alt="My Electric Objects family photo frame"></p>
+<p><img src="images/frame.jpg" alt="My Electric Objects family photo frame"></p>
 <p>Having seen a bunch of great SMS/MMS demos from <a href="https://twitter.com/rickyrobinett">Ricky Robinett</a> at <a href="http://brooklynjs.com">BrooklynJS</a>, I figured Twilio would be an easy way to pull all of the photos out of our existing iMessage group and put them on the display. So I created an app that uses AWS to glue Twilio and Electric Objects together, and put <a href="https://github.com/jed/twil-eo">the source code on GitHub</a>. Here’s how the whole thing works:</p>
 <ol>
 <li>I created a new Twilio phone number and added it to the existing iMessage group my family uses to communicate.</li>
@@ -143,7 +143,7 @@
 <li>For <strong>Stage name</strong>, specify <code>prod</code>.</li>
 <li>Click the <strong>Deploy</strong> button.</li>
 <li>Take note of the URL given at the top in <strong>Invoke URL</strong>. This is the URL you’ll use for your Twilio webhook.</li>
-<li>Your endpoint is ready. </li>
+<li>Your endpoint is ready.</li>
 </ol>
 <p><a name="twilio"></a></p>
 <h3 id="step-4a-buy-a-twilio-number">Step 4a: Buy a Twilio number</h3>
@@ -160,7 +160,7 @@
 <p><a name="webhook"></a></p>
 <h3 id="step-4b-point-your-twilio-number-at-api-gateway">Step 4b: Point your Twilio number at API Gateway</h3>
 <ol>
-<li>Under <strong>Messaging</strong>, for <strong>A MESSAGE COMES IN</strong>, </li>
+<li>Under <strong>Messaging</strong>, for <strong>A MESSAGE COMES IN</strong>,</li>
 <li>Choose <strong>Webhook</strong>.</li>
 <li>Specify the invoke URL from your API Gateway endpoint. It should look like <code>https://**********.execute-api.us-east-1.amazonaws.com/prod</code>.</li>
 <li>Choose <strong>HTTP POST</strong></li>
