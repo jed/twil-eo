@@ -34,7 +34,9 @@ var layout = []
 
 // Since the aspect ratio of the EO1 frame is 9:16, we'll define our layout
 // as a set of 16 squares in decreasing size from 6x6 to 1x1, and place
-// them carefully to fill every pixel, as shown in the image below.
+// them carefully to fill every pixel, as shown in the image below. Many
+// thanks to [Nikki Sylianteng](https://twitter.com/nsylianteng) for helping
+// me find a layout that's easy on the eyes!
 
 // ![layout](images/layout.png)
 layout[ 0] = {size: 6, left: 0, top:  0}
