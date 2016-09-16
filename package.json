@@ -6,8 +6,7 @@
     "docs": "docco -l linear intro.md index.js setup.md",
     "tidy": "rm -rf node_modules/smartcrop/{.git_,release,dist,*.zip}",
     "zip": "zip -r lambda.zip index.js node_modules",
-    "code": "npm prune --prod && npm run tidy && npm run zip",
-    "build": "npm run docs && npm run code",
+    "build": "npm prune --prod && npm run tidy && npm run zip",
     "test": "node test.js"
   },
   "repository": {
