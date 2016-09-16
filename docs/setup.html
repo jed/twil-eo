@@ -18,15 +18,19 @@
 <p>The following are instructions for building the MMS-powered family photo frame described in <a href="https://jed.github.io/twil-eo/intro.html">this post</a>.</p>
 <p>All in all this setup should take you about ten minutes. Setup is divided into three parts:</p>
 <ol>
-<li><a href="#login">create a JSON file</a> with your Electric Objects login information,</li>
+<li>Download <a href="#lambda">the Lambda code</a> and <a href="#login">Electric Objects login information</a>,</li>
 <li>set up an <a href="#s3">S3 bucket</a>, <a href="#iam">IAM role</a>, <a href="#lambda">Lambda function</a>, and <a href="#apigateway">API Gateway endpoint</a> on AWS,</li>
 <li>set up a <a href="#twilio">Twilio phone number</a>, and <a href="#webhook">point it at your API Gateway endpoint</a>.</li>
 </ol>
+<p><a name="lambda"></a></p>
+<h3 id="step-1a-download-the-lambda-code">Step 1a: Download the lambda code</h3>
+<p>Download <a href="https://raw.githubusercontent.com/jed/twil-eo/master/lambda.zip">the Lambda code</a> from GitHub, and save it anywhere on your computer where you can find it again.</p>
 <p><a name="login"></a></p>
-<h3 id="step-1-create-a-json-file-with-your-electric-objects-login-information">Step 1: Create a JSON file with your Electric Objects login information</h3>
-<p>Open your favorite text editor, and paste in the following JSON, replacing <code>where@jed.is</code> with the email address of your Electric Objects account and <code>timtam</code> with the password of your Electric Objects account.</p>
-<pre><code>{&quot;email&quot;: &quot;where@jed.is&quot;, &quot;password&quot;: &quot;timtam&quot;}
-</code></pre><p>Save this file as <code>eo-config.json</code>, anywhere on your computer where you can find it again.</p>
+<h3 id="step-1b-download-and-edit-the-electric-objects-login-json-file-">Step 1b: Download and edit the Electric Objects login JSON file.</h3>
+<ol>
+<li>Download <a href="https://raw.githubusercontent.com/jed/twil-eo/master/eo-config.json">Electric Objects login JSON file</a> from GitHub, and save it in the same location as above.</li>
+<li>Open this file in your favorite text editor, replace <code>YOUR-ELECTRIC-OBJECTS-EMAIL-ADDRESS</code> and <code>YOUR-ELECTRIC-OBJECTS-PASSWORD</code> with your Electric Objects email address and password, and then save your changes.</li>
+</ol>
 <p><a name="s3"></a></p>
 <h3 id="step-2a-create-an-aws-s3-bucket-">Step 2a: Create an AWS S3 bucket.</h3>
 <p>This is where you’ll store your EO1 account settings, the images coming in from Twilio, and the composited collage to be sent to the Electric Objects display.</p>
@@ -38,7 +42,7 @@
 <li>Click the <strong>Create</strong> button.</li>
 <li>Click the <strong>Upload</strong> button.</li>
 <li>Click the <strong>Add Files</strong> button.</li>
-<li>Choose the <code>eo-config.json</code> file created above.</li>
+<li>Choose the <code>eo-config.json</code> file downloaded in <a href="#login">step 1b</a>.</li>
 <li>Click the <strong>Start Upload</strong> button.</li>
 <li>Your bucket is ready.</li>
 </ol>
@@ -65,7 +69,7 @@
 <li>For <strong>Name</strong>, specify the same name of your project as you did for the S3 bucket.</li>
 <li>For <strong>Runtime</strong>, choose <strong>Node.js 4.3</strong>.</li>
 <li>For <strong>Code entry type</strong>, choose <strong>Upload a .ZIP file</strong>.</li>
-<li>Click the <strong>Upload</strong> button and choose the <code>lambda.zip</code> file in your project directory.</li>
+<li>Click the <strong>Upload</strong> button and choose the <code>lambda.zip</code> file downloaded in <a href="#lambda">step 1a</a>.</li>
 <li>For <strong>Handler</strong>, specify <code>index.handler</code>.</li>
 <li>For <strong>Role</strong>, choose <strong>Choose an existing role</strong>.</li>
 <li>For <strong>Existing role</strong>, choose the name of the role you created.</li>
@@ -77,7 +81,7 @@
 <li>Your lambda is ready.</li>
 </ol>
 <p><a name="apigateway"></a></p>
-<h3 id="step-2d-create-an-api-gateway-endpoint">Step 2d: Create an API Gateway endpoint</h3>
+<h3 id="step-2d-create-an-aws-api-gateway-endpoint">Step 2d: Create an AWS API Gateway endpoint</h3>
 <ol>
 <li>From the top nav of the <a href="https://console.aws.amazon.com">AWS Console</a>, choose <strong>Services</strong>, then <strong>All AWS Services</strong>, then <strong>API Gateway</strong>.</li>
 <li>Click the <strong>Get Started</strong> button.</li>
