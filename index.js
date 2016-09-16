@@ -1,6 +1,6 @@
 // # Using Twilio, AWS, and Electric Objects to create an MMS-powered family photo frame: understanding the code
 
-// This is a walk-through of the AWS Lambda code used to build the MMS-powered family photo frame described in [this post](https://jed.github.io/twil-eo/intro.html). You don't need this to create your own frame, but it's always good to understand the code you'll be running.
+// This is a walk-through of the AWS Lambda code used to build the MMS-powered family photo frame described in [this post](https://jed.github.io/twil-eo/intro.html). You don't need this to create your own frame, but it's always good to understand the code you'll be running. This document was generated from [the source](https://github.com/jed/twil-eo/blob/master/index.js) using [docco](http://jashkenas.github.io/docco/).
 
 // First, let's bring in some libraries to do the heavy lifting.
 
