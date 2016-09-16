@@ -29,23 +29,30 @@ In this post, I'm going to show you how to create your own collaborative family 
 
 Once you've got those sorted, you'll just need to:
 
-1. understand how the code works (optional, only if you're interested!),
+1. understand how [the code](#code) works (optional, only if you're interested!),
 2. [create a JSON file](#login) with your Electric Objects login information,
-3. set up an [S3 bucket](#s3), [IAM role](#iam), [Lambda function](#lambda), and [API Gateway endpoint](#apigateway) on AWS, and
-4. set up a [Twilio phone number](#twilio) and [point it at your API Gateway endpoint](#webhook).
+3. set up an [S3 bucket](#s3), [IAM role](#iam), [Lambda function](#lambda), and [API Gateway endpoint](#apigateway) on AWS,
+4. set up a [Twilio phone number](#twilio), and [point it at your API Gateway endpoint](#webhook).
+
+<a name="code"></a>
+### Step 1: Understand how the code works
+
+We'll step through the code here
 
 <a name="login"></a>
-### Create a JSON file with your Electric Objects login information
+### Step 2: Create a JSON file with your Electric Objects login information
 
-Open your favorite text editor, and paste in the following JSON, replacing `where@jed.is` and `timtam` with the email address and password of your Electric Objects account, and then save it as `eo-config.json` anywhere on your computer where you can find it again.
+Open your favorite text editor, and paste in the following JSON, replacing `where@jed.is` with the email address of your Electric Objects account and `timtam` with the password of your Electric Objects account.
 ```
 {"email": "where@jed.is", "password": "timtam"}
 ```
 
-<a name="s3"></a>
-### Create an AWS S3 bucket.
+Save this file as `eo-config.json`, anywhere on your computer where you can find it again.
 
-This is where you'll store your EO1 account settings, the images coming in from Twilio, and the composited collage to be sent to the EO1 frame.
+<a name="s3"></a>
+### Step 3a: Create an AWS S3 bucket.
+
+This is where you'll store your EO1 account settings, the images coming in from Twilio, and the composited collage to be sent to the Electric Objects display.
 
 1. From the top nav of the [AWS Console](https://console.aws.amazon.com), choose **Services**, then **All AWS Services**, then **S3**.
 2. Click the **Create bucket** button.
@@ -59,7 +66,7 @@ This is where you'll store your EO1 account settings, the images coming in from 
 10. Your bucket is ready.
 
 <a name="iam"></a>
-### Create an AWS IAM role.
+### Step 3b: Create an AWS IAM role.
 
 This gives your Lambda function the permissions it needs to read from and write to the S3 bucket.
 
@@ -74,7 +81,7 @@ This gives your Lambda function the permissions it needs to read from and write 
 9. Your role is ready.
 
 <a name="lambda"></a>
-### Create an AWS Lambda function.
+### Step 3c: Create an AWS Lambda function.
 
 1. From the top nav of the [AWS Console](https://console.aws.amazon.com), choose **Services**, then **All AWS Services**, then **Lambda**.
 2. Click the **Skip** button.
@@ -94,7 +101,7 @@ This gives your Lambda function the permissions it needs to read from and write 
 16. Your lambda is ready.
 
 <a name="apigateway"></a>
-### Create an API Gateway endpoint
+### Step 3d: Create an API Gateway endpoint
 
 1. From the top nav of the [AWS Console](https://console.aws.amazon.com), choose **Services**, then **All AWS Services**, then **API Gateway**.
 2. Click the **Get Started** button.
@@ -140,7 +147,7 @@ This gives your Lambda function the permissions it needs to read from and write 
 22. Your endpoint is ready. 
 
 <a name="twilio"></a>
-### Buy a Twilio number
+### Step 4a: Buy a Twilio number
 
 1. Open the [Twilio Console](https://www.twilio.com/console/phone-numbers/incoming) for phone numbers.
 2. Click the **+** button.
@@ -152,7 +159,7 @@ This gives your Lambda function the permissions it needs to read from and write 
 8. Click the **Setup number** button.
 
 <a name="webhook"></a>
-### Point your number at API Gateway
+### Step 4b: Point your Twilio number at API Gateway
 
 1. Under **Messaging**, for **A MESSAGE COMES IN**, 
 	1. Choose **Webhook**.
