@@ -4,19 +4,20 @@ The following are instructions for building the MMS-powered family photo frame d
 
 All in all this setup should take you about ten minutes. Setup is divided into three parts:
 
-1. [create a JSON file](#login) with your Electric Objects login information,
+1. Download [the Lambda code](#lambda) and [Electric Objects login information](#login),
 2. set up an [S3 bucket](#s3), [IAM role](#iam), [Lambda function](#lambda), and [API Gateway endpoint](#apigateway) on AWS,
 3. set up a [Twilio phone number](#twilio), and [point it at your API Gateway endpoint](#webhook).
 
+<a name="lambda"></a>
+### Step 1a: Download the lambda code
+
+Download [the Lambda code](https://raw.githubusercontent.com/jed/twil-eo/master/lambda.zip) from GitHub, and save it anywhere on your computer where you can find it again.
+
 <a name="login"></a>
-### Step 1: Create a JSON file with your Electric Objects login information
+### Step 1b: Download and edit the Electric Objects login JSON file.
 
-Open your favorite text editor, and paste in the following JSON, replacing `where@jed.is` with the email address of your Electric Objects account and `timtam` with the password of your Electric Objects account.
-```
-{"email": "where@jed.is", "password": "timtam"}
-```
-
-Save this file as `eo-config.json`, anywhere on your computer where you can find it again.
+1. Download [Electric Objects login JSON file](https://raw.githubusercontent.com/jed/twil-eo/master/eo-config.json) from GitHub, and save it in the same location as above.
+2. Open this file in your favorite text editor, replace `YOUR-ELECTRIC-OBJECTS-EMAIL-ADDRESS` and `YOUR-ELECTRIC-OBJECTS-PASSWORD` with your Electric Objects email address and password, and then save your changes.
 
 <a name="s3"></a>
 ### Step 2a: Create an AWS S3 bucket.
@@ -30,7 +31,7 @@ This is where you'll store your EO1 account settings, the images coming in from 
 5. Click the **Create** button.
 6. Click the **Upload** button.
 7. Click the **Add Files** button.
-8. Choose the `eo-config.json` file created above.
+8. Choose the `eo-config.json` file downloaded in [step 1b](#login).
 9. Click the **Start Upload** button.
 10. Your bucket is ready.
 
@@ -58,7 +59,7 @@ This gives your Lambda function the permissions it needs to read from and write 
 4. For **Name**, specify the same name of your project as you did for the S3 bucket.
 5. For **Runtime**, choose **Node.js 4.3**.
 6. For **Code entry type**, choose **Upload a .ZIP file**.
-7. Click the **Upload** button and choose the `lambda.zip` file in your project directory.
+7. Click the **Upload** button and choose the `lambda.zip` file downloaded in [step 1a](#lambda).
 8. For **Handler**, specify `index.handler`.
 9. For **Role**, choose **Choose an existing role**.
 10. For **Existing role**, choose the name of the role you created.
