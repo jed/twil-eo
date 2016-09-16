@@ -2,13 +2,13 @@
 
 A few months ago my partner and I welcomed a pudgy baby boy named Ko into our lives. Since then it's been amazing to see the small changes in him day by day, like when he discovered his hands, or learned how to smile. So I've found myself taking out my phone a lot more often, to capture as many of these moments as I can.
 
-![Meet Ko, in classic onigiri form](https://twil-eo.s3.amazonaws.com/ko.jpg)
+![Meet Ko, in classic onigiri form](images/ko.jpg)
 
 And of course the demands from my parents for pictures of their new grandson have been fierce. Ordinarily I'd post things like this on Facebook, but having been on the receiving end of oversharing parents there for a while now, I wanted something a little less public. Sure, I could deal with Facebook's ever-changing twiddly permissions UI to make sure photos only went to my parents, but since we were already using iMessage to communicate, I decided to send them pictures there.
 
 This was definitely the path of least resistance, but of course, the iMessage UI isn't really a great way to get a snapshot of someone's most recent pictures. So I decided to get creative, and **turn my Electric Objects Digital Art Display into a collaborative family photo frame**, so that my parents could see new pictures show up in their kitchen, in real time. I've used digital picture frames like [Ceiva](http://www.ceiva.com) in the past, and they're okay, but nothing matches the sleek finish of the Electric Objects display, or the ability to control how images are loaded and displayed.
 
-![My Electric Objects family photo frame](https://twil-eo.s3.amazonaws.com/frame.jpg)
+![My Electric Objects family photo frame](images/frame.jpg)
 
 Having seen a bunch of great SMS/MMS demos from [Ricky Robinett](https://twitter.com/rickyrobinett) at [BrooklynJS](http://brooklynjs.com), I figured Twilio would be an easy way to pull all of the photos out of our existing iMessage group and put them on the display. So I created an app that uses AWS to glue Twilio and Electric Objects together, and put [the source code on GitHub](https://github.com/jed/twil-eo). Here's how the whole thing works:
 
@@ -144,7 +144,7 @@ This gives your Lambda function the permissions it needs to read from and write 
 19. For **Stage name**, specify `prod`.
 20. Click the **Deploy** button.
 21. Take note of the URL given at the top in **Invoke URL**. This is the URL you'll use for your Twilio webhook.
-22. Your endpoint is ready. 
+22. Your endpoint is ready.
 
 <a name="twilio"></a>
 ### Step 4a: Buy a Twilio number
@@ -161,7 +161,7 @@ This gives your Lambda function the permissions it needs to read from and write 
 <a name="webhook"></a>
 ### Step 4b: Point your Twilio number at API Gateway
 
-1. Under **Messaging**, for **A MESSAGE COMES IN**, 
+1. Under **Messaging**, for **A MESSAGE COMES IN**,
 	1. Choose **Webhook**.
 	2. Specify the invoke URL from your API Gateway endpoint. It should look like `https://**********.execute-api.us-east-1.amazonaws.com/prod`.
 	3. Choose **HTTP POST**

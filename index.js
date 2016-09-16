@@ -32,7 +32,7 @@ var layout = []
 // as a set of 16 squares in decreasing size from 6x6 to 1x1, and place
 // them carefully to fill every pixel, as shown in the image below.
 
-// ![layout](../layout.png)
+// ![layout](images/layout.png)
 layout[ 0] = {size: 6, left: 0, top:  0}
 
 layout[ 1] = {size: 5, left: 4, top:  8}
