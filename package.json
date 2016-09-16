@@ -17,10 +17,10 @@
   },
   "homepage": "https://www.twilio.com/blog/XXXXXXXXX",
   "devDependencies": {
+    "aws-sdk": "^2.6.2",
     "docco": "^0.7.0"
   },
   "dependencies": {
-    "aws-sdk": "^2.6.2",
     "electric-objects": "^1.0.0",
     "gm": "^1.23.0",
     "got": "^6.5.0",
