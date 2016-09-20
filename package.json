@@ -4,9 +4,8 @@
   "description": "Using Twilio, AWS, and Electric Objects to create an MMS-powered family photo frame.",
   "scripts": {
     "docs": "docco -l linear intro.md index.js setup.md",
-    "tidy": "rm -rf node_modules/smartcrop/{.git_,release,dist,*.zip}",
     "zip": "zip -r lambda.zip index.js node_modules",
-    "build": "npm prune --prod && npm run tidy && npm run zip",
+    "build": "npm prune --prod && npm run zip",
     "test": "node test.js"
   },
   "repository": {
@@ -28,6 +27,6 @@
     "gm": "^1.23.0",
     "got": "^6.5.0",
     "mz": "^2.4.0",
-    "smartcrop-gm": "^1.0.1"
+    "smartcrop-gm": "^1.0.2"
   }
 }
