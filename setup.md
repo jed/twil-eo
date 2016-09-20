@@ -2,11 +2,12 @@
 
 The following are instructions for building the MMS-powered family photo frame described in [this post](https://jed.github.io/twil-eo/intro.html).
 
-All in all this setup should take you about ten minutes. Setup is divided into three parts:
+All in all this setup should take you about ten minutes. Setup is divided into four parts:
 
 1. Download [the Lambda code](#lambda) and [Electric Objects login information](#login),
 2. set up an [S3 bucket](#s3), [IAM role](#iam), [Lambda function](#lambda), and [API Gateway endpoint](#apigateway) on AWS,
-3. set up a [Twilio phone number](#twilio), and [point it at your API Gateway endpoint](#webhook).
+3. set up a [Twilio phone number](#twilio), and [point it at your API Gateway endpoint](#webhook),
+4. [send an MMS](#test) to your number to test that it works.
 
 <a name="lambda"></a>
 ### Step 1a: Download the lambda code
@@ -137,3 +138,13 @@ This gives your Lambda function the permissions it needs to read from and write 
     3. Choose **HTTP POST**
 2. Click the **Save** button.
 3. Your phone number is ready.
+
+<a name="test"></a>
+### Step 4: Test your setup
+
+Once you've completed the setup, take out your phone and send a photo to your Twilio phone number. Your frame should be updated with the new photo within about 15 seconds, but if it isn't:
+
+1. Check the [programmable SMS logs](https://www.twilio.com/console/sms/logs) in your Twilio console to see that an appropriate response was returned from API Gateway.
+2. Check the [AWS CloudWatch logs](https://console.aws.amazon.com/cloudwatch/home) for your Lambda function to see if the function terminated successfully.
+
+Also, to check whether your collage has been updated without checking your Electric Objects display directly, just access the collage image from your S3 bucket, in the [AWS S3 console](https://console.aws.amazon.com/s3/home).
