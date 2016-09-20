@@ -378,7 +378,7 @@ their <code>set_url</code> page to point the frame to the collage URL.</p>
     <span class="hljs-keyword">var</span> account = <span class="hljs-built_in">JSON</span>.parse(res.Body.toString(<span class="hljs-string">'utf8'</span>))
     <span class="hljs-keyword">var</span> client = eo(account.email, account.password)
 
-    <span class="hljs-keyword">return</span> client.setUrl(url)
+    <span class="hljs-keyword">return</span> client.setUrl(url).then(() =&gt; url)
   })
 }</pre></div>
         

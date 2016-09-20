@@ -16,11 +16,12 @@
           
           <h1 id="using-twilio-aws-and-electric-objects-to-create-an-mms-powered-family-photo-frame-setting-up-twilio-and-aws">Using Twilio, AWS, and Electric Objects to create an MMS-powered family photo frame: setting up Twilio and AWS</h1>
 <p>The following are instructions for building the MMS-powered family photo frame described in <a href="https://jed.github.io/twil-eo/intro.html">this post</a>.</p>
-<p>All in all this setup should take you about ten minutes. Setup is divided into three parts:</p>
+<p>All in all this setup should take you about ten minutes. Setup is divided into four parts:</p>
 <ol>
 <li>Download <a href="#lambda">the Lambda code</a> and <a href="#login">Electric Objects login information</a>,</li>
 <li>set up an <a href="#s3">S3 bucket</a>, <a href="#iam">IAM role</a>, <a href="#lambda">Lambda function</a>, and <a href="#apigateway">API Gateway endpoint</a> on AWS,</li>
-<li>set up a <a href="#twilio">Twilio phone number</a>, and <a href="#webhook">point it at your API Gateway endpoint</a>.</li>
+<li>set up a <a href="#twilio">Twilio phone number</a>, and <a href="#webhook">point it at your API Gateway endpoint</a>,</li>
+<li><a href="#test">send an MMS</a> to your number to test that it works.</li>
 </ol>
 <p><a name="lambda"></a></p>
 <h3 id="step-1a-download-the-lambda-code">Step 1a: Download the lambda code</h3>
@@ -148,6 +149,14 @@
 <li>Click the <strong>Save</strong> button.</li>
 <li>Your phone number is ready.</li>
 </ol>
+<p><a name="test"></a></p>
+<h3 id="step-4-test-your-setup">Step 4: Test your setup</h3>
+<p>Once you’ve completed the setup, take out your phone and send a photo to your Twilio phone number. Your frame should be updated with the new photo within about 15 seconds, but if it isn’t:</p>
+<ol>
+<li>Check the <a href="https://www.twilio.com/console/sms/logs">programmable SMS logs</a> in your Twilio console to see that an appropriate response was returned from API Gateway.</li>
+<li>Check the <a href="https://console.aws.amazon.com/cloudwatch/home">AWS CloudWatch logs</a> for your Lambda function to see if the function terminated successfully.</li>
+</ol>
+<p>Also, to check whether your collage has been updated without checking your Electric Objects display directly, just access the collage image from your S3 bucket, in the <a href="https://console.aws.amazon.com/s3/home">AWS S3 console</a>.</p>
 
           
         
