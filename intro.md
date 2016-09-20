@@ -23,9 +23,9 @@ From my phone to their display, the whole process takes about 15 seconds, a nice
 
 In this post, I'm going to show you how to create your own collaborative family photo frame. All you need to follow along is:
 
-- [An Electric Objects Digital Art Display](https://www.amazon.com/dp/B00X98OMKE?tag=jedschmidt-20)
-- [A Twilio account](https://www.twilio.com)
-- [An Amazon Web Services account](https://aws.amazon.com)
+- [An Electric Objects Digital Art Display](https://www.amazon.com/dp/B00X98OMKE?tag=jedschmidt-20). The price of the frame [fluctuates quite a bit on Amazon](http://camelcamelcamel.com/Electric-Objects-Digital-Display-Black/product/B00X98OMKE), but can often be found around $250.
+- [A Twilio account](https://www.twilio.com) that's been upgraded with credit.
+- [An Amazon Web Services account](https://aws.amazon.com).
 
 Once you've got those sorted, now you'll just need to:
 
